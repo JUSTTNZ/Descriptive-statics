@@ -23,6 +23,10 @@ class DescriptiveStatistics {
     }
 
     mode() {
+        if (this.data.length === 0) {
+            return undefined; // or handle the empty dataset case
+        }
+        
         const countMap = new Map(); 
         this.data.forEach((value) => {
             countMap.set(value, (countMap.get(value) || 0) + 1);
@@ -48,7 +52,7 @@ class DescriptiveStatistics {
         const slicedData = this.data.slice().sort((a, b) => a - b);
         return slicedData[slicedData.length - 1] - slicedData[0];
     }
-
+ 
     variance() {
         const meanValue = this.mean();
         const squaredDifferences = this.data.map((value) => Math.pow(value - meanValue, 2));
