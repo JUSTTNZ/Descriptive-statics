@@ -26,7 +26,7 @@ class DescriptiveStatistics {
         if (this.data.length === 0) {
             return undefined; // or handle the empty dataset case
         }
-        
+        // count occurence of each value
         const countMap = new Map(); 
         this.data.forEach((value) => {
             countMap.set(value, (countMap.get(value) || 0) + 1);
@@ -35,7 +35,7 @@ class DescriptiveStatistics {
         let mode;
         let maximumCount = 0;
 
-        countMap.forEach((count, value) => {
+        countMap.forEach((count, value) => { 
             if (count > maximumCount) {
                 mode = value;
                 maximumCount =  count;
@@ -63,23 +63,27 @@ class DescriptiveStatistics {
         return Math.sqrt(this.variance());
     }
 
-    skewness(){
-        const n = this.data.length;
+    
+    meanDeviation() {
         const meanValue = this.mean();
-        const standardSkewness =  this.standarddDeviation();
-        const skewCubedDifference = this.data.reduce((total, value) => total + Math.pow((value -  meanValue) / standardSkewness, 3), 0);
-        return (n / ((n - 1) * (n - 2))) * skewCubedDifference;
+        const deviations = this.data.map((value) => Math.abs(value - meanValue));
+        return deviations.reduce((total, deviation) => total + deviation, 0) / this.data.length;
     }
-
-    kurtosis() {
-        const n = this.data.length;
-        const meanValue = this.mean();
-        const standardSkewness = this.standarddDeviation();
-
-        const sumFourthDiff =  this.data.reduce((total, value) => total + Math.pow((value - meanValue) / standardSkewness, 4), 0);
-        return (1 / n) * sumFourthDiff - 3;
+    
+        quartileDeviation() {
+            const sortedData = this.data.slice().sort((a, b) => a - b);
+    
+            const q1Index = Math.ceil(0.25 * sortedData.length) - 1;
+            const q3Index = Math.ceil(0.75 * sortedData.length) - 1;
+    
+            const q1 = sortedData[q1Index];
+            const q3 = sortedData[q3Index];
+    
+            return (q3 - q1) / 2;
+        }
     }
-}
+    
+
 
 const data =  [2, 4, 4, 4, 5, 5, 7, 9];
 const stats = new DescriptiveStatistics(data);
@@ -92,8 +96,8 @@ console.log('Mode:', stats.mode());
 console.log('Range:', stats.range());
 console.log('Variance:', stats.variance());
 console.log('Standard Deviation:', stats.standarddDeviation());
-console.log('Skewness:', stats.skewness());
-console.log('Kurtosis:', stats.kurtosis());
+console.log('meanDeviation:', stats.meanDeviation());
+console.log('quartileDeviation:', stats.quartileDeviation());
 
 
 
