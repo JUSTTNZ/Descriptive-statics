@@ -7,14 +7,7 @@ Welcome to the Descriptive Statistics module! This tool provides a set of descri
 
 ## This module calculates the following descriptive statistics:
 
-Mean
-Median
-Standard Deviation
-Variance
-Minimum and Maximum
-Quartiles (Q1, Q2, Q3)
-Skewness
-Kurtosis
+Mean,Median,mode,Standard Deviation,Variance,range,Skewness and Kurtosis
 
 
 
