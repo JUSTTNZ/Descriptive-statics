@@ -28,7 +28,7 @@ class DescriptiveStatistics {
         }
         // count occurence of each value
         const countMap = new Map(); 
-        this.data.forEach((value) => {
+        const(value of this.data) {
             countMap.set(value, (countMap.get(value) || 0) + 1);
         });
 
